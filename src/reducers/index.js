@@ -1,7 +1,8 @@
 import { combineReducers } from 'redux';
+import SheepReducer from './reducer_sheep';
 
 const rootReducer = combineReducers({
-  state: (state = {}) => state
+  sheep: SheepReducer
 });
 
 export default rootReducer;
