@@ -1,27 +1,39 @@
 import React, { Component } from 'react';
-import { connect } from 'react-redux'
+import { connect } from 'react-redux';
+import { selectSheep } from '../actions/index';
+import { bindActionCreators } from 'redux';
 
 class SheepList extends Component {
 	renderList() {
 		return this.props.sheep.map((sheep) => {
 			return (
-				<li key={sheep.name} className="list-group-item">{sheep.name}</li>
+				<li 
+					key={sheep.name} 
+					onClick={() => this.props.selectSheep(sheep)}
+					className="list-group-item">
+					{sheep.name}
+				</li>
 			);
 		});
 	}
 	
 	render() {
-		<ul className="list-group col-sm-4">
-			{this.renderList()}
-		</ul>
+		return (
+			<ul className="list-group col-sm-4">
+				{this.renderList()}
+			</ul>
+		)
 	}
 }
 
 
 function mapStateToProps(state) {
-	return (
+	return {
 		sheep: state.sheep
-	);
+	};
 }
 
-export default connect(mapStateToProps)(SheepList);
+function mapDispatchToProps(dispatch) {
+	return bindActionCreators({ selectSheep: selectSheep }, dispatch)
+}
+export default connect(mapStateToProps, mapDispatchToProps)(SheepList);
